@@ -7,6 +7,7 @@
     import Modal_popup from '../../components/Modal_popup.svelte' 
     import Loader from '../../components/Loader.svelte' 
     import Panel from '../../components/Panel_default.svelte' 
+    import Panel_info from '../../components/Panel_info.svelte' 
 
     export let path_api = "";
     export let token = "";
@@ -169,9 +170,9 @@
         <table class="table table-compact w-full">
             <thead class="sticky top-0">
                 <tr>
-                    <th width="1%" class="bg-[#6c7ae0] text-xs lg:text-sm text-white text-center"></th>
-                    <th width="1%" class="bg-[#6c7ae0] text-xs lg:text-sm text-white text-center">NO</th>
-                    <th width="*" class="bg-[#6c7ae0] text-xs lg:text-sm text-white text-left">CURRENCY</th>
+                    <th width="1%" class="bg-[#475289] text-xs lg:text-sm text-white text-center"></th>
+                    <th width="1%" class="bg-[#475289] text-xs lg:text-sm text-white text-center">NO</th>
+                    <th width="*" class="bg-[#475289] text-xs lg:text-sm text-white text-left">CURRENCY</th>
                 </tr>
             </thead>
             {#if filterHome != ""}
@@ -230,10 +231,24 @@
             </div>
            
             {#if sData == "Edit"}
-            <div class="text-[11px]">
-                Create : {curr_create_field} <br>
-                Update : {curr_update_field}
-            </div>
+            <Panel_info>
+                <slot:template slot="panel_body">
+                    <table>
+                        <tr>
+                            <td>Create</td>
+                            <td>:</td>
+                            <td>{curr_create_field}</td>
+                        </tr>
+                        {#if curr_update_field != ""}
+                        <tr>
+                            <td>Modified</td>
+                            <td>:</td>
+                            <td>{curr_update_field}</td>
+                        </tr>
+                        {/if}
+                    </table>
+                </slot:template>
+            </Panel_info>
             {/if}
         </div>
         {#if sData == "New"}
@@ -242,7 +257,7 @@
                 on:click={() => {
                     handleSubmit();
                 }}  
-                class="{buttonLoading_class}">Submit</button>
+                class="{buttonLoading_class} m-0 h-1 min-h-[40px] shadow-lg">Submit</button>
         </div>
         {/if}
     </slot:template>

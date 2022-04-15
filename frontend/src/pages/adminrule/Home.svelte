@@ -162,9 +162,9 @@
         <table class="table table-compact w-full ">
             <thead class="sticky top-0">
                 <tr>
-                    <th width="1%" class="bg-[#6c7ae0] text-xs lg:text-sm text-white text-center"></th>
-                    <th width="1%" class="bg-[#6c7ae0] text-xs lg:text-sm text-white text-center">NO</th>
-                    <th width="*" class="bg-[#6c7ae0] text-xs lg:text-sm text-white text-left">RULE</th>
+                    <th width="1%" class="bg-[#475289] text-xs lg:text-sm text-white text-center"></th>
+                    <th width="1%" class="bg-[#475289] text-xs lg:text-sm text-white text-center">NO</th>
+                    <th width="*" class="bg-[#475289] text-xs lg:text-sm text-white text-left">RULE</th>
                 </tr>
             </thead>
             {#if filterHome != ""}
@@ -227,7 +227,7 @@
                     on:click={() => {
                         handleSubmit();
                     }}  
-                    class="{buttonLoading_class}">Submit</button>
+                    class="{buttonLoading_class} m-0 h-1 min-h-[40px] shadow-lg">Submit</button>
             </div>
         {/if}
         {#if sData=="Edit"}
@@ -256,7 +256,7 @@
                             on:click={() => {
                                 handleSubmit();
                             }}  
-                            class="{buttonLoading_class} btn-block">Submit</button>
+                            class="{buttonLoading_class} btn-block rounded-md m-0 h-1 min-h-[40px] shadow-lg">Submit</button>
                     </div>
                 </div>
                 <div class="w-full p-2">

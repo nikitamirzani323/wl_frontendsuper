@@ -6,6 +6,7 @@
     import Modal_alert from '../../components/Modal_alert.svelte' 
     import Modal_popup from '../../components/Modal_popup.svelte' 
     import Loader from '../../components/Loader.svelte' 
+    import Panel_info from '../../components/Panel_info.svelte' 
     import Panel from '../../components/Panel_default.svelte' 
 
     export let path_api = "";
@@ -217,16 +218,16 @@
         <table class="table table-compact w-full">
             <thead class="sticky top-0">
                 <tr>
-                    <th width="1%" class="bg-[#6c7ae0] text-xs lg:text-sm text-white text-center"></th>
-                    <th width="1%" class="bg-[#6c7ae0] text-xs lg:text-sm text-white text-center">NO</th>
-                    <th width="1%" class="bg-[#6c7ae0] text-xs lg:text-sm text-white text-center">STATUS</th>
-                    <th width="10%" class="bg-[#6c7ae0] text-xs lg:text-sm text-white text-center">TIMEZONE</th>
-                    <th width="11%" class="bg-[#6c7ae0] text-xs lg:text-sm text-white text-center">IPADDRESS</th>
-                    <th width="15%" class="bg-[#6c7ae0] text-xs lg:text-sm text-white text-center">LAST LOGIN</th>
-                    <th width="15%" class="bg-[#6c7ae0] text-xs lg:text-sm text-white text-center">JOIN DATE</th>
-                    <th width="20%" class="bg-[#6c7ae0] text-xs lg:text-sm text-white text-left">RULE</th>
-                    <th width="20%" class="bg-[#6c7ae0] text-xs lg:text-sm text-white text-left">USERNAME</th>
-                    <th width="*" class="bg-[#6c7ae0] text-xs lg:text-sm text-white text-left">NAMA</th>
+                    <th width="1%" class="bg-[#475289] text-xs lg:text-sm text-white text-center"></th>
+                    <th width="1%" class="bg-[#475289] text-xs lg:text-sm text-white text-center">NO</th>
+                    <th width="1%" class="bg-[#475289] text-xs lg:text-sm text-white text-center">STATUS</th>
+                    <th width="10%" class="bg-[#475289] text-xs lg:text-sm text-white text-center">TIMEZONE</th>
+                    <th width="11%" class="bg-[#475289] text-xs lg:text-sm text-white text-center">IPADDRESS</th>
+                    <th width="15%" class="bg-[#475289] text-xs lg:text-sm text-white text-center">LAST LOGIN</th>
+                    <th width="15%" class="bg-[#475289] text-xs lg:text-sm text-white text-center">JOIN DATE</th>
+                    <th width="20%" class="bg-[#475289] text-xs lg:text-sm text-white text-left">RULE</th>
+                    <th width="20%" class="bg-[#475289] text-xs lg:text-sm text-white text-left">USERNAME</th>
+                    <th width="*" class="bg-[#475289] text-xs lg:text-sm text-white text-left">NAMA</th>
                 </tr>
             </thead>
             {#if filterHome != ""}
@@ -241,7 +242,7 @@
                             </svg>
                         </td>
                         <td class="text-xs lg:text-sm align-top text-center">{rec.home_no}</td>
-                        <td class="text-xs lg:text-sm align-top text-center"><span class="{rec.home_statusclass} text-center rounded-md p-1 px-2 shadow-lg">{rec.home_status}</span></td>
+                        <td class="text-xs lg:text-sm align-top text-center"><span class="{rec.home_statusclass} text-center rounded-md p-1 px-2">{rec.home_status}</span></td>
                         <td class="text-xs lg:text-sm align-top text-center">{rec.home_timezone}</td>
                         <td class="text-xs lg:text-sm align-top text-center">{rec.home_lastipaddres}</td>
                         <td class="text-xs lg:text-sm align-top text-center">{rec.home_lastlogin}</td>
@@ -310,7 +311,7 @@
                     on:change="{handleChange}"
                     bind:value={$form.admin_idrule_field}
                     invalid={$errors.admin_idrule_field.length > 0} 
-                    class="w-full rounded px-3  border border-gray-300 focus:border-blue-700 focus:ring-1 focus:ring-blue-700 focus:outline-none input active:outline-none">
+                    class="w-full rounded px-3 text-sm lg:text-md  border border-gray-300 focus:border-blue-700 focus:ring-1 focus:ring-blue-700 focus:outline-none input active:outline-none">
                     <option disabled selected value="">--Pilih Admin Rule--</option>
                     {#each admin_listrule as rec}
                     <option value="{rec.adminrule_idruleadmin}">{rec.adminrule_nmadmin}</option>
@@ -340,7 +341,7 @@
                     on:change="{handleChange}"
                     bind:value={$form.admin_status_field}
                     invalid={$errors.admin_status_field.length > 0} 
-                    class="w-full rounded px-3  border border-gray-300 focus:border-blue-700 focus:ring-1 focus:ring-blue-700 focus:outline-none input active:outline-none">
+                    class="w-full text-sm lg:text-md rounded px-3  border border-gray-300 focus:border-blue-700 focus:ring-1 focus:ring-blue-700 focus:outline-none input active:outline-none">
                     <option disabled selected value="">--Pilih Status--</option>
                     <option value="ACTIVE">ACTIVE</option>
                     <option value="BANNED">BANNED</option>
@@ -350,10 +351,24 @@
                 {/if}
             </div>
             {#if sData == "Edit"}
-            <div class="text-[11px]">
-                Create : {admin_create_field} <br>
-                Update : {admin_update_field}
-            </div>
+                <Panel_info>
+                    <slot:template slot="panel_body">
+                        <table>
+                            <tr>
+                                <td>Create</td>
+                                <td>:</td>
+                                <td>{admin_create_field}</td>
+                            </tr>
+                            {#if admin_update_field != ""}
+                            <tr>
+                                <td>Modified</td>
+                                <td>:</td>
+                                <td>{admin_update_field}</td>
+                            </tr>
+                            {/if}
+                        </table>
+                    </slot:template>
+                </Panel_info>
             {/if}
         </div>
         <div class="flex flex-wrap justify-end align-middle p-[0.75rem] mt-2">
@@ -361,7 +376,7 @@
                 on:click={() => {
                     handleSubmit();
                 }}  
-                class="{buttonLoading_class}">Submit</button>
+                class="{buttonLoading_class} rounded-md m-0 h-1 min-h-[40px] shadow-lg">Submit</button>
         </div>
     </slot:template>
 </Modal_popup>

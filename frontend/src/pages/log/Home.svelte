@@ -64,12 +64,12 @@
         <table class="table table-compact w-full">
             <thead class="sticky top-0">
                 <tr>
-                    <th width="1%" class="bg-[#6c7ae0] text-xs lg:text-sm text-white text-center">NO</th>
-                    <th width="20%" class="bg-[#6c7ae0] text-xs lg:text-sm text-white text-center">DATETIME</th>
-                    <th width="20%" class="bg-[#6c7ae0] text-xs lg:text-sm text-white text-left">USERNAME</th>
-                    <th width="20%" class="bg-[#6c7ae0] text-xs lg:text-sm text-white text-left">PAGE</th>
-                    <th width="20%" class="bg-[#6c7ae0] text-xs lg:text-sm text-white text-left">ACTION</th>
-                    <th width="*" class="bg-[#6c7ae0] text-xs lg:text-sm text-white text-left">NOTE</th>
+                    <th width="1%" class="bg-[#475289] text-xs lg:text-sm text-white text-center">NO</th>
+                    <th width="10%" class="bg-[#475289] text-xs lg:text-sm text-white text-center">DATETIME</th>
+                    <th width="10%" class="bg-[#475289] text-xs lg:text-sm text-white text-left">CREATE</th>
+                    <th width="10%" class="bg-[#475289] text-xs lg:text-sm text-white text-left">PAGE</th>
+                    <th width="10%" class="bg-[#475289] text-xs lg:text-sm text-white text-left">ACTION</th>
+                    <th width="*" class="bg-[#475289] text-xs lg:text-sm text-white text-left">NOTE</th>
                 </tr>
             </thead>
             {#if filterHome != ""}
