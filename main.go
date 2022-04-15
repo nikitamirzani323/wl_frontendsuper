@@ -7,7 +7,7 @@ import (
 	"syscall"
 
 	"github.com/joho/godotenv"
-	"github.com/nikitamirzani323/go_mastertoto/routers"
+	"github.com/nikitamirzani323/wl_frontendsuper/routers"
 )
 
 func main() {

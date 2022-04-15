@@ -1,14 +1,18 @@
 <script>
     import Home from "../log/Home.svelte";
+    import Modal_alert from '../../components/Modal_alert.svelte' 
     export let path_api = ""
     let listHome = [];
     let record = "";
     let totalrecord = 0;
-    let admin_username = "";
     let token = localStorage.getItem("token");
+    let master = localStorage.getItem("master");
+    let isModalNotif = false;
+    let msg_error = ""
     let akses_page = false;
     async function initapp() {
-        const res = await fetch(path_api+"api/home", {
+        msg_error = ""
+        const res = await fetch(path_api+"api/init", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -22,11 +26,14 @@
         if (json.status === 400) {
             logout();
         } else if (json.status == 403) {
-            alert(json.message);
+            msg_error = json.message;
             akses_page = false;
         } else {
             akses_page = true;
             initHome();
+        }
+        if(msg_error != ""){
+            isModalNotif = true;
         }
     }
     async function initHome() {
@@ -37,6 +44,7 @@
                 Authorization: "Bearer " + token,
             },
             body: JSON.stringify({
+                master: master,
             }),
         });
         const json = await res.json();
@@ -55,7 +63,7 @@
                             home_no: no,
                             home_id: record[i]["log_id"],
                             home_datetime: record[i]["log_datetime"],
-                            home_username: record[i]["log_username"],
+                            home_username: record[i]["log_user"],
                             home_page: record[i]["log_page"],
                             home_tipe: record[i]["log_tipe"],
                             home_note: note_result,
@@ -92,3 +100,7 @@
         {listHome}
         {totalrecord}/>
 {/if}
+<input type="checkbox" id="my-modal-notiffirst" class="modal-toggle" bind:checked={isModalNotif}>
+<Modal_alert 
+    modal_tipe="notifikasi" modal_id="my-modal-notiffirst" 
+    modal_title="Information" modal_message="{msg_error}"  />
