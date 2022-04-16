@@ -234,37 +234,37 @@
             </div>
            
             {#if sData == "Edit"}
-            <Panel_info>
-                <slot:template slot="panel_body">
-                    <table>
-                        <tr>
-                            <td>Create</td>
-                            <td>:</td>
-                            <td>{curr_create_field}</td>
-                        </tr>
-                        {#if curr_update_field != ""}
-                        <tr>
-                            <td>Modified</td>
-                            <td>:</td>
-                            <td>{curr_update_field}</td>
-                        </tr>
-                        {/if}
-                    </table>
-                </slot:template>
-            </Panel_info>
+                <Panel_info>
+                    <slot:template slot="panel_body">
+                        <table>
+                            <tr>
+                                <td>Create</td>
+                                <td>:</td>
+                                <td>{curr_create_field}</td>
+                            </tr>
+                            {#if curr_update_field != ""}
+                            <tr>
+                                <td>Modified</td>
+                                <td>:</td>
+                                <td>{curr_update_field}</td>
+                            </tr>
+                            {/if}
+                        </table>
+                    </slot:template>
+                </Panel_info>
             {/if}
         </div>
         {#if sData == "New"}
-        <div class="flex flex-wrap justify-end align-middle p-[0.75rem] mt-2">
-            <Button_custom 
-                on:click={() => {
-                    handleSubmit();
-                }}
-                button_disable={buttonLoading_class}
-                button_class=""
-                button_disable_class="{buttonLoading_class}"
-                button_title="Submit" />
-        </div>
+            <div class="flex flex-wrap justify-end align-middle p-[0.75rem] mt-2">
+                <Button_custom 
+                    on:click={() => {
+                        handleSubmit();
+                    }}
+                    button_disable={buttonLoading_class}
+                    button_class=""
+                    button_disable_class="{buttonLoading_class}"
+                    button_title="Submit" />
+            </div>
         {/if}
     </slot:template>
 </Modal_popup>

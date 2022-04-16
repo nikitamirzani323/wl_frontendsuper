@@ -14,5 +14,5 @@
         {button_title}
     </button>
 {:else}
-    <button class="btn {button_disable_class} rounded-none loading">Loading</button>
+    <button class="btn {button_disable_class}  loading">Loading</button>
 {/if}

@@ -4,6 +4,7 @@
     import * as yup from "yup";
     import dayjs from "dayjs";
     import Input_custom from '../../components/Input.svelte' 
+    import Button_custom from '../../components/button_custom.svelte'
     import Modal_alert from '../../components/Modal_alert.svelte' 
     import Modal_popup from '../../components/Modal_popup.svelte' 
     import Loader from '../../components/Loader.svelte' 
@@ -29,8 +30,8 @@
     let modal_listadmin_width = "max-w-xl"
     let loader_class = "hidden"
     let loader_msg = "Sending..."
-    let buttonLoading_class = "btn btn-primary"
-    let buttonLoading2_class  = "btn btn-primary"
+    let buttonLoading_flag = false;
+    let buttonLoading_class = "btn-block";
     let msg_error = "";
     let idcompany = "";
     let listAdmin = [];
@@ -139,7 +140,7 @@
             msg_error +="The Status is required<br>";
         }
         if (flag) {
-            buttonLoading_class = "btn loading"
+            buttonLoading_flag = true;
             loader_class = "inline-block"
             loader_msg = "Sending..."
             const res = await fetch(path_api+"api/savecompany", {
@@ -178,7 +179,7 @@
                 } else {
                     loader_msg = json.message;
                 }
-                buttonLoading_class = "btn btn-primary"
+                buttonLoading_flag = false;
                 setTimeout(function () {
                     loader_class = "hidden";
                 }, 1000);
@@ -236,7 +237,7 @@
             admin_status_field_error ="Status is required"
         }
         if(flag == false){
-            buttonLoading_class = "btn loading"
+            buttonLoading_flag = true;
             loader_class = "inline-block"
             loader_msg = "Sending..."
             const res = await fetch(path_api+"api/savecompanylistadmin", {
@@ -274,7 +275,7 @@
                 } else {
                     loader_msg = json.message;
                 }
-                buttonLoading_class = "btn btn-primary"
+                buttonLoading_flag = false;
                 setTimeout(function () {
                     loader_class = "hidden";
                 }, 1000);
@@ -656,14 +657,16 @@
                     </select>
                 </div>
                 <div class="col-span-2">
-                    <button
-                    on:click={() => {
-                        handleSubmit();
-                    }}  
-                    class="{buttonLoading_class} btn-block rounded-md m-0 h-1 min-h-[40px] shadow-lg">Submit</button>
+                    <Button_custom 
+                        on:click={() => {
+                            handleSubmit();
+                        }}
+                        button_disable={buttonLoading_flag}
+                        button_class="btn-block"
+                        button_disable_class="{buttonLoading_class}"
+                        button_title="Submit" />
                 </div>    
-            </div>
-            
+            </div>          
         {/if}
         {#if sData=="Edit"}
             <div class="flex justify-between w-full gap-2">
@@ -803,11 +806,14 @@
                             </slot:template>
                         </Panel_info>
                         <div class="col-span-2">
-                            <button
-                            on:click={() => {
-                                handleSubmit();
-                            }}  
-                            class="{buttonLoading_class} btn-block rounded-md m-0 h-1 min-h-[40px] shadow-lg">Submit</button>
+                            <Button_custom 
+                                on:click={() => {
+                                    handleSubmit();
+                                }}
+                                button_disable={buttonLoading_flag}
+                                button_class="btn-block"
+                                button_disable_class="{buttonLoading_class}"
+                                button_title="Submit" />
                         </div>    
                     </div>
                 </div>
@@ -1003,11 +1009,14 @@
                 </slot:template>
             </Panel_info>
             {/if}
-            <button
+            <Button_custom 
                 on:click={() => {
                     SaveTransaksiListAdmin();
-                }}  
-                class="{buttonLoading_class} btn-block rounded-md m-0 h-1 min-h-[40px] shadow-lg">Submit</button>
+                }}
+                button_disable={buttonLoading_flag}
+                button_class=""
+                button_disable_class="{buttonLoading_class}"
+                button_title="Submit" />
         </div>
     </slot:template>
 </Modal_popup>

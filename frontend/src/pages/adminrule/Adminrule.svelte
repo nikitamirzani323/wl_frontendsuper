@@ -38,6 +38,7 @@
         }
     }
     async function initHome() {
+        listHome = [];
         const res = await fetch(path_api+"api/adminrule", {
             method: "POST",
             headers: {

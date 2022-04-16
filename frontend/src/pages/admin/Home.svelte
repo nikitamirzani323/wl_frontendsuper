@@ -3,6 +3,7 @@
     import { createForm } from "svelte-forms-lib";
     import * as yup from "yup";
     import Input_custom from '../../components/Input.svelte' 
+    import Button_custom from '../../components/button_custom.svelte'
     import Modal_alert from '../../components/Modal_alert.svelte' 
     import Modal_popup from '../../components/Modal_popup.svelte' 
     import Loader from '../../components/Loader.svelte' 
@@ -23,7 +24,8 @@
     let isModalNotif = false
     let loader_class = "hidden"
     let loader_msg = "Sending..."
-    let buttonLoading_class = "btn btn-primary"
+    let buttonLoading_flag = false;
+    let buttonLoading_class = "";
     let msg_error = "";
     let searchHome = "";
     let filterHome = [];
@@ -85,7 +87,7 @@
             msg_error += "The Status is required";
         }
         if (flag) {
-            buttonLoading_class = "btn loading"
+            buttonLoading_flag = true;
             loader_class = "inline-block"
             loader_msg = "Sending..."
             const res = await fetch(path_api+"api/saveadmin", {
@@ -125,7 +127,7 @@
                 } else {
                     loader_msg = json.message;
                 }
-                buttonLoading_class = "btn btn-primary"
+                buttonLoading_flag = false;
                 setTimeout(function () {
                     loader_class = "hidden";
                 }, 1000);
@@ -147,6 +149,11 @@
             $form.admin_name_field = name;
             $form.admin_idrule_field = rule;
             $form.admin_status_field = status;
+            $errors.admin_username_field = "";
+            $errors.admin_password_field = "";
+            $errors.admin_name_field = "";
+            $errors.admin_idrule_field = "";
+            $errors.admin_status_field = "";
             admin_create_field = create;
             admin_update_field = update;
             isModal_Form_New = true;
@@ -175,6 +182,11 @@
         $form.admin_name_field = "";
         $form.admin_idrule_field = "";
         $form.admin_status_field = "";
+        $errors.admin_username_field = "";
+        $errors.admin_password_field = "";
+        $errors.admin_name_field = "";
+        $errors.admin_idrule_field = "";
+        $errors.admin_status_field = "";
     }
     
     $: {
@@ -373,11 +385,14 @@
             {/if}
         </div>
         <div class="flex flex-wrap justify-end align-middle p-[0.75rem] mt-2">
-            <button
+            <Button_custom 
                 on:click={() => {
                     handleSubmit();
-                }}  
-                class="{buttonLoading_class} rounded-md m-0 h-1 min-h-[40px] shadow-lg">Submit</button>
+                }}
+                button_disable={buttonLoading_flag}
+                button_class=""
+                button_disable_class="{buttonLoading_class}"
+                button_title="Submit" />
         </div>
     </slot:template>
 </Modal_popup>
