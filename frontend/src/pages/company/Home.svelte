@@ -486,6 +486,7 @@
                     <th width="1%" class="bg-[#475289] {font_size}  text-white text-center">STATUS</th>
                     <th width="10%" class="bg-[#475289] {font_size}  text-white text-center">START JOIN</th>
                     <th width="10%" class="bg-[#475289] {font_size}  text-white text-center">END JOIN</th>
+                    <th width="5%" class="bg-[#475289] {font_size}  text-white text-left">CURR</th>
                     <th width="5%" class="bg-[#475289] {font_size}  text-white text-left">IDCOMP</th>
                     <th width="*" class="bg-[#475289] {font_size}  text-white text-left">COMPANY</th>
                     <th width="10%" class="bg-[#475289] {font_size} text-white text-left">OWNER</th>
@@ -507,10 +508,11 @@
                         </td>
                         <td class="{font_size} align-top text-center">{rec.home_no}</td>
                         <td class="{font_size} align-top text-center">
-                            <span class="{rec.home_status_class} text-center rounded-md p-1 px-2  ">{rec.home_status}</span>
+                            <span class="{rec.home_status_class} text-center rounded-md p-1 px-2">{rec.home_status}</span>
                         </td>
                         <td class="{font_size} align-top text-left">{rec.home_startjoin}</td>
                         <td class="{font_size} align-top text-left">{rec.home_endjoin}</td>
+                        <td class="{font_size} align-top text-left">{rec.home_curr}</td>
                         <td class="{font_size} align-top text-left">{rec.home_idcompany}</td>
                         <td class="{font_size} align-top text-left">{rec.home_name}</td>
                         <td class="{font_size} align-top text-left">{rec.home_owner}</td>
@@ -827,7 +829,7 @@
                                 ChangeTabMenu("menu_listpasaran");
                             }}
                             class="items-center {tab_listpasaran} px-2 py-1.5 text-xs lg:text-sm cursor-pointer rounded-md outline outline-1 outline-offset-1 outline-sky-600">List Member</li>
-                            <li on:click={() => {
+                        <li on:click={() => {
                                 ChangeTabMenu("menu_listpasaran");
                             }}
                             class="items-center {tab_listpasaran} px-2 py-1.5 text-xs lg:text-sm cursor-pointer rounded-md outline outline-1 outline-offset-1 outline-sky-600">List Transaksi</li>
