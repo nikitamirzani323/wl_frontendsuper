@@ -12,6 +12,7 @@
  
 
     export let path_api = "";
+    export let font_size = "";
     export let token = "";
     export let listHome = [];
     export let listcurrency = [];
@@ -479,16 +480,16 @@
         <table class="table table-compact w-full ">
             <thead class="sticky top-0">
                 <tr>
-                    <th width="1%" class="bg-[#475289] text-xs lg:text-sm text-white text-center"></th>
-                    <th width="1%" class="bg-[#475289] text-xs lg:text-sm text-white text-center">NO</th>
-                    <th width="1%" class="bg-[#475289] text-xs lg:text-sm text-white text-center">STATUS</th>
-                    <th width="10%" class="bg-[#475289] text-xs lg:text-sm text-white text-center">START JOIN</th>
-                    <th width="10%" class="bg-[#475289] text-xs lg:text-sm text-white text-center">END JOIN</th>
-                    <th width="5%" class="bg-[#475289] text-xs lg:text-sm text-white text-left">IDCOMP</th>
-                    <th width="*" class="bg-[#475289] text-xs lg:text-sm text-white text-left">COMPANY</th>
-                    <th width="10%" class="bg-[#475289] text-xs lg:text-sm text-white text-left">OWNER</th>
-                    <th width="10%" class="bg-[#475289] text-xs lg:text-sm text-white text-left">EMAIL</th>
-                    <th width="10%" class="bg-[#475289] text-xs lg:text-sm text-white text-left">PHONE</th>
+                    <th width="1%" class="bg-[#475289] {font_size}  text-white text-center"></th>
+                    <th width="1%" class="bg-[#475289] {font_size}  text-white text-center">NO</th>
+                    <th width="1%" class="bg-[#475289] {font_size}  text-white text-center">STATUS</th>
+                    <th width="10%" class="bg-[#475289] {font_size}  text-white text-center">START JOIN</th>
+                    <th width="10%" class="bg-[#475289] {font_size}  text-white text-center">END JOIN</th>
+                    <th width="5%" class="bg-[#475289] {font_size}  text-white text-left">IDCOMP</th>
+                    <th width="*" class="bg-[#475289] {font_size}  text-white text-left">COMPANY</th>
+                    <th width="10%" class="bg-[#475289] {font_size} text-white text-left">OWNER</th>
+                    <th width="10%" class="bg-[#475289] {font_size} text-white text-left">EMAIL</th>
+                    <th width="10%" class="bg-[#475289] {font_size} text-white text-left">PHONE</th>
                 </tr>
             </thead>
             {#if filterHome != ""}
@@ -503,17 +504,17 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                             </svg>
                         </td>
-                        <td class="text-xs lg:text-sm align-top text-center">{rec.home_no}</td>
-                        <td class="text-xs lg:text-sm align-top text-center">
+                        <td class="{font_size} align-top text-center">{rec.home_no}</td>
+                        <td class="{font_size} align-top text-center">
                             <span class="{rec.home_status_class} text-center rounded-md p-1 px-2  ">{rec.home_status}</span>
                         </td>
-                        <td class="text-xs lg:text-sm align-top text-left">{rec.home_startjoin}</td>
-                        <td class="text-xs lg:text-sm align-top text-left">{rec.home_endjoin}</td>
-                        <td class="text-xs lg:text-sm align-top text-left">{rec.home_idcompany}</td>
-                        <td class="text-xs lg:text-sm align-top text-left">{rec.home_name}</td>
-                        <td class="text-xs lg:text-sm align-top text-left">{rec.home_owner}</td>
-                        <td class="text-xs lg:text-sm align-top text-left">{rec.home_email}</td>
-                        <td class="text-xs lg:text-sm align-top text-left">{rec.home_phone}</td>
+                        <td class="{font_size} align-top text-left">{rec.home_startjoin}</td>
+                        <td class="{font_size} align-top text-left">{rec.home_endjoin}</td>
+                        <td class="{font_size} align-top text-left">{rec.home_idcompany}</td>
+                        <td class="{font_size} align-top text-left">{rec.home_name}</td>
+                        <td class="{font_size} align-top text-left">{rec.home_owner}</td>
+                        <td class="{font_size} align-top text-left">{rec.home_email}</td>
+                        <td class="{font_size} align-top text-left">{rec.home_phone}</td>
                         
                     </tr>
                     {/each}
@@ -839,12 +840,12 @@
                             <table class="table table-compact w-full">
                                 <thead class="sticky top-0">
                                     <tr>
-                                        <th width="1%" class="bg-[#475289] text-white text-xs text-center align-top">&nbsp;</th>
-                                        <th width="1%" class="bg-[#475289] text-white text-xs text-center align-top">STATUS</th>
-                                        <th width="7%" class="bg-[#475289] text-white text-xs text-left align-top">TYPE</th>
-                                        <th width="10%" class="bg-[#475289] text-white text-xs text-center align-top">LASTLOGIN</th>
-                                        <th width="10%" class="bg-[#475289] text-white text-xs text-center align-top">LASTIPADDRESS</th>
-                                        <th width="*" class="bg-[#475289] text-white text-xs text-left align-top">USERNAME</th>
+                                        <th width="1%" class="bg-[#475289] text-white {font_size} text-center align-top">&nbsp;</th>
+                                        <th width="1%" class="bg-[#475289] text-white {font_size} text-center align-top">STATUS</th>
+                                        <th width="7%" class="bg-[#475289] text-white {font_size} text-left align-top">TYPE</th>
+                                        <th width="10%" class="bg-[#475289] text-white {font_size} text-center align-top">LAST LOGIN</th>
+                                        <th width="10%" class="bg-[#475289] text-white {font_size} text-center align-top">LAST IPADDRESS</th>
+                                        <th width="*" class="bg-[#475289] text-white {font_size} text-left align-top">USERNAME</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -859,13 +860,13 @@
                                                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                                                     </svg>
                                                 </td>
-                                                <td class="text-xs text-center align-top">
+                                                <td class="{font_size} text-center align-top">
                                                     <span class="{rec.companyadmin_status_class} text-center rounded-md p-1 px-2 ">{rec.companyadmin_status}</span>
                                                 </td>
-                                                <td class="text-xs text-left align-top">{rec.companyadmin_type}</td>
-                                                <td class="text-xs text-center align-top">{rec.companyadmin_lastlogin}</td>
-                                                <td class="text-xs text-center align-top">{rec.companyadmin_lastipaddress}</td>
-                                                <td class="text-xs text-left align-top">{rec.companyadmin_username}</td>
+                                                <td class="{font_size} text-left align-top">{rec.companyadmin_type}</td>
+                                                <td class="{font_size} text-center align-top">{rec.companyadmin_lastlogin}</td>
+                                                <td class="{font_size} text-center align-top">{rec.companyadmin_lastipaddress}</td>
+                                                <td class="{font_size} text-left align-top">{rec.companyadmin_username}</td>
                                             </tr>
                                         {/each}
                                     {:else}

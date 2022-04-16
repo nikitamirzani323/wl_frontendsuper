@@ -2,6 +2,7 @@
     import Home from "../log/Home.svelte";
     import Modal_alert from '../../components/Modal_alert.svelte' 
     export let path_api = ""
+    export let font_size = ""
     let listHome = [];
     let record = "";
     let totalrecord = 0;
@@ -95,8 +96,7 @@
     <Home
         on:handleRefreshData={handleRefreshData}
         on:handleLogout={handleLogout}
-        {path_api}
-        {token}
+        {font_size}
         {listHome}
         {totalrecord}/>
 {/if}

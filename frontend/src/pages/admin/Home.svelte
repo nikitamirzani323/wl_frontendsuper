@@ -10,6 +10,7 @@
     import Panel from '../../components/Panel_default.svelte' 
 
     export let path_api = "";
+    export let font_size = "";
     export let token = "";
     export let listHome = [];
     export let admin_listrule = [];
@@ -218,16 +219,16 @@
         <table class="table table-compact w-full">
             <thead class="sticky top-0">
                 <tr>
-                    <th width="1%" class="bg-[#475289] text-xs lg:text-sm text-white text-center"></th>
-                    <th width="1%" class="bg-[#475289] text-xs lg:text-sm text-white text-center">NO</th>
-                    <th width="1%" class="bg-[#475289] text-xs lg:text-sm text-white text-center">STATUS</th>
-                    <th width="10%" class="bg-[#475289] text-xs lg:text-sm text-white text-center">TIMEZONE</th>
-                    <th width="11%" class="bg-[#475289] text-xs lg:text-sm text-white text-center">IPADDRESS</th>
-                    <th width="15%" class="bg-[#475289] text-xs lg:text-sm text-white text-center">LAST LOGIN</th>
-                    <th width="15%" class="bg-[#475289] text-xs lg:text-sm text-white text-center">JOIN DATE</th>
-                    <th width="20%" class="bg-[#475289] text-xs lg:text-sm text-white text-left">RULE</th>
-                    <th width="20%" class="bg-[#475289] text-xs lg:text-sm text-white text-left">USERNAME</th>
-                    <th width="*" class="bg-[#475289] text-xs lg:text-sm text-white text-left">NAMA</th>
+                    <th width="1%" class="bg-[#475289] {font_size} text-white text-center"></th>
+                    <th width="1%" class="bg-[#475289] {font_size} text-white text-center">NO</th>
+                    <th width="1%" class="bg-[#475289] {font_size} text-white text-center">STATUS</th>
+                    <th width="10%" class="bg-[#475289] {font_size} text-white text-center">TIMEZONE</th>
+                    <th width="11%" class="bg-[#475289] {font_size} text-white text-center">IPADDRESS</th>
+                    <th width="15%" class="bg-[#475289] {font_size} text-white text-center">LAST LOGIN</th>
+                    <th width="15%" class="bg-[#475289] {font_size} text-white text-center">JOIN DATE</th>
+                    <th width="20%" class="bg-[#475289] {font_size} text-white text-left">RULE</th>
+                    <th width="20%" class="bg-[#475289] {font_size} text-white text-left">USERNAME</th>
+                    <th width="*" class="bg-[#475289] {font_size} text-white text-left">NAMA</th>
                 </tr>
             </thead>
             {#if filterHome != ""}
@@ -241,15 +242,15 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                             </svg>
                         </td>
-                        <td class="text-xs lg:text-sm align-top text-center">{rec.home_no}</td>
-                        <td class="text-xs lg:text-sm align-top text-center"><span class="{rec.home_statusclass} text-center rounded-md p-1 px-2">{rec.home_status}</span></td>
-                        <td class="text-xs lg:text-sm align-top text-center">{rec.home_timezone}</td>
-                        <td class="text-xs lg:text-sm align-top text-center">{rec.home_lastipaddres}</td>
-                        <td class="text-xs lg:text-sm align-top text-center">{rec.home_lastlogin}</td>
-                        <td class="text-xs lg:text-sm align-top text-center">{rec.home_joindate}</td>
-                        <td class="text-xs lg:text-sm align-top text-left">{rec.home_rule}</td>
-                        <td class="text-xs lg:text-sm align-top text-left">{rec.home_username}</td>
-                        <td class="text-xs lg:text-sm align-top text-left">{rec.home_nama}</td>
+                        <td class="{font_size} align-top text-center">{rec.home_no}</td>
+                        <td class="{font_size} align-top text-center"><span class="{rec.home_statusclass} text-center rounded-md p-1 px-2">{rec.home_status}</span></td>
+                        <td class="{font_size} align-top text-center">{rec.home_timezone}</td>
+                        <td class="{font_size} align-top text-center">{rec.home_lastipaddres}</td>
+                        <td class="{font_size} align-top text-center">{rec.home_lastlogin}</td>
+                        <td class="{font_size} align-top text-center">{rec.home_joindate}</td>
+                        <td class="{font_size} align-top text-left">{rec.home_rule}</td>
+                        <td class="{font_size} align-top text-left">{rec.home_username}</td>
+                        <td class="{font_size} align-top text-left">{rec.home_nama}</td>
                     </tr>
                     {/each}
                 </tbody>

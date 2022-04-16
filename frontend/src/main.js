@@ -3,8 +3,9 @@ import App from './App.svelte'
 const app = new App({
   target: document.getElementById('app'),
   props: {
-		path_api: "/",
-		// path_api: "http://localhost:2021/",
+		// path_api: "/",
+		path_api: "http://localhost:2021/",
+		font_size: "text-[12px] lg:text-[13px]"
 	}
 })
 
