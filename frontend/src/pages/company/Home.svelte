@@ -24,6 +24,7 @@
     let sDataAdmin = "New";
     let isModal_Form_New = false
     let isModal_Form_admin = false
+    let isModal_Form_agen = false
     let isModalLoading = false
     let isModalNotif = false
     let modal_width = "max-w-xl"
@@ -35,17 +36,22 @@
     let msg_error = "";
     let idcompany = "";
     let listAdmin = [];
+    let listagen = [];
     let totalrecordadmin = 0;
+    let totalrecordagen = 0;
     let tab_listadmin = "bg-sky-600 text-white"
-    let tab_listpasaran = ""
+    let tab_listagen = ""
     let panel_listadmin = true
+    let panel_listagen = false
 
     
 
     let searchHome = "";
     let searchListAdmin = "";
+    let searchListAgen = "";
     let filterHome = [];
     let filterListAdmin = [];
+    let filterListAgen = [];
     let home_create = "";
     let home_update = "";
     let select_curr_field = "";
@@ -65,6 +71,16 @@
     let admin_email_field_error = "";
     let admin_phone_field_error = "";
     let admin_status_field_error = "";
+
+    let info_idagen = "";
+    let info_nmagen = "";
+    let info_start = "";
+    let info_end = "";
+    let info_ownername = "";
+    let info_ownerphone = "";
+    let info_owneremail = "";
+    let info_create = "";
+    let info_update = "";
 
     let dispatch = createEventDispatcher();
     const schema = yup.object().shape({
@@ -327,7 +343,53 @@
             }
         } 
     }
-
+    async function call_listagen() {
+        listagen = [];
+        const res = await fetch(path_api+"api/companylistagen", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + token,
+            },
+            body: JSON.stringify({
+                company: idcompany,
+            }),
+        });
+        const json = await res.json();
+        if (json.status == 200) {
+            let record = json.record;
+            if (record != null) {
+                totalrecordagen = record.length;
+                let companyagen_status_class = "";
+                let companyagen_status_text = "";
+                for (var i = 0; i < record.length; i++) {
+                    if(record[i]["companyagen_status"] == "Y"){
+                        companyagen_status_class = "bg-[#ebfbee] text-[#6ec07b]"
+                        companyagen_status_text = "ACTIVE"
+                    }else{
+                        companyagen_status_class = "bg-[#fde3e3] text-[#ea7779]"
+                        companyagen_status_text = "DEACTIVE"
+                    }
+                    listagen = [
+                        ...listagen,
+                        {
+                            companyagen_idagen:record[i]["companyagen_idagen"],
+                            companyagen_nmagen:record[i]["companyagen_nmagen"],
+                            companyagen_start:record[i]["companyagen_start"],
+                            companyagen_end:record[i]["companyagen_end"],
+                            companyagen_ownername:record[i]["companyagen_ownername"],
+                            companyagen_ownerphone:record[i]["companyagen_ownerphone"],
+                            companyagen_owneremail:record[i]["companyagen_owneremail"],
+                            companyagen_status:companyagen_status_text,
+                            companyagen_status_class:companyagen_status_class,
+                            companyagen_create:record[i]["companyagen_create"],
+                            companyagen_update:record[i]["companyagen_update"],
+                        },
+                    ];
+                }
+            }
+        } 
+    }
     const RefreshHalaman = () => {
         dispatch("handleRefreshData", "call");
     };
@@ -384,19 +446,35 @@
             clearFieldListAdmin();
         }
     };
-    
+   
+    const EntryDataAgen = (data_idagen,data_nmagen,data_startagen,data_endagen,data_ownername,data_ownerphone,data_owneremail,data_create,data_update) => {
+        modal_listadmin_width = "max-w-xl"
+        isModal_Form_agen = true;
+        info_idagen = data_idagen;
+        info_nmagen = data_nmagen;
+        info_start = data_startagen;
+        info_end = data_endagen;
+        info_ownername = data_ownername;
+        info_ownerphone = data_ownerphone;
+        info_owneremail = data_owneremail;
+        info_create = data_create;
+        info_update = data_update;
+    };
     const ChangeTabMenu = (e) => {
         switch(e){
             case "menu_listadmin":
                 call_listadmin();
                 tab_listadmin = "bg-sky-600 text-white"
-                tab_listpasaran = ""
+                tab_listagen = ""
                 panel_listadmin = true
+                panel_listagen = false
                 break;
-            case "menu_listmember":
+            case "menu_listagen":
+                call_listagen();
                 tab_listadmin = ""
-                tab_listpasaran = "bg-sky-600 text-white"
+                tab_listagen = "bg-sky-600 text-white"
                 panel_listadmin = false
+                panel_listagen = true
                 break;
         }
     }
@@ -456,6 +534,17 @@
         } else {
             filterListAdmin = [...listAdmin];
         }
+
+        if (searchListAgen) {
+            filterListAgen = listagen.filter(
+                (item) =>
+                    item.companyagen_idagen
+                        .toLowerCase()
+                        .includes(searchListAgen.toLowerCase())
+            );
+        } else {
+            filterListAgen = [...listagen];
+        }
     }
 </script>
 <Loader loader_class="{loader_class}" loader_msg="{loader_msg}" />
@@ -492,6 +581,7 @@
                     <th width="10%" class="bg-[#475289] {font_size} text-white text-left">OWNER</th>
                     <th width="10%" class="bg-[#475289] {font_size} text-white text-left">EMAIL</th>
                     <th width="10%" class="bg-[#475289] {font_size} text-white text-left">PHONE</th>
+                    <th width="5%" class="bg-[#475289] {font_size} text-white text-right">AGEN</th>
                 </tr>
             </thead>
             {#if filterHome != ""}
@@ -518,6 +608,7 @@
                         <td class="{font_size} align-top text-left">{rec.home_owner}</td>
                         <td class="{font_size} align-top text-left">{rec.home_email}</td>
                         <td class="{font_size} align-top text-left">{rec.home_phone}</td>
+                        <td class="{font_size} align-top text-right {rec.home_totalagen_class} font-bold">{rec.home_totalagen}</td>
                         
                     </tr>
                     {/each}
@@ -826,13 +917,13 @@
                             }}
                             class="items-center {tab_listadmin} px-2 py-1.5 text-xs lg:text-sm cursor-pointer rounded-md outline outline-1 outline-offset-1 outline-sky-600">List Admin</li>
                         <li on:click={() => {
-                                ChangeTabMenu("menu_listpasaran");
+                                ChangeTabMenu("menu_listagen");
                             }}
-                            class="items-center {tab_listpasaran} px-2 py-1.5 text-xs lg:text-sm cursor-pointer rounded-md outline outline-1 outline-offset-1 outline-sky-600">List Member</li>
+                            class="items-center {tab_listagen} px-2 py-1.5 text-xs lg:text-sm cursor-pointer rounded-md outline outline-1 outline-offset-1 outline-sky-600">List Agen</li>
                         <li on:click={() => {
                                 ChangeTabMenu("menu_listpasaran");
                             }}
-                            class="items-center {tab_listpasaran} px-2 py-1.5 text-xs lg:text-sm cursor-pointer rounded-md outline outline-1 outline-offset-1 outline-sky-600">List Transaksi</li>
+                            class="items-center {tab_listagen} px-2 py-1.5 text-xs lg:text-sm cursor-pointer rounded-md outline outline-1 outline-offset-1 outline-sky-600">List Transaksi</li>
                     </ul>
                     {#if panel_listadmin}
                         <h2 class="text-lg font-bold">List Admin</h2>
@@ -894,7 +985,62 @@
                             </table>
                         </div>
                     {/if}
-                    
+                    {#if panel_listagen}
+                        <h2 class="text-lg font-bold">List Agen</h2>
+                        <div class="flex justify-between items-center w-full gap-1">
+                            <input 
+                                bind:value={searchListAgen}
+                                type="text" placeholder="Search by Agen" class="input input-bordered w-full  rounded-md  focus:ring-0 focus:outline-none">
+                            
+                        </div>
+                        <div class="w-full  scrollbar-thin scrollbar-thumb-sky-300 scrollbar-track-sky-100 h-[400px] overflow-y-scroll mt-2">
+                            <table class="table table-compact w-full">
+                                <thead class="sticky top-0">
+                                    <tr>
+                                        <th width="1%" class="bg-[#475289] text-white {font_size} text-center align-top">&nbsp;</th>
+                                        <th width="1%" class="bg-[#475289] text-white {font_size} text-center align-top">STATUS</th>
+                                        <th width="7%" class="bg-[#475289] text-white {font_size} text-left align-top">IDAGEN</th>
+                                        <th width="*" class="bg-[#475289] text-white {font_size} text-left align-top">AGEN</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {#if filterListAgen != ""}
+                                        {#each filterListAgen as rec}
+                                            <tr>
+                                                <td class="cursor-pointer" on:click={() => {
+                                                        EntryDataAgen(rec.companyagen_idagen,rec.companyagen_nmagen,
+                                                        rec.companyagen_start,rec.companyagen_end,
+                                                        rec.companyagen_ownername,rec.companyagen_ownerphone,rec.companyagen_owneremail,
+                                                        rec.companyagen_create,rec.companyagen_update);
+                                                    }}>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                                    </svg>
+                                                </td>
+                                                <td class="{font_size} text-center align-top">
+                                                    <span class="{rec.companyagen_status_class} text-center rounded-md p-1 px-2 ">{rec.companyagen_status}</span>
+                                                </td>
+                                                <td class="{font_size} text-left align-top">{rec.companyagen_idagen}</td>
+                                                <td class="{font_size} text-left align-top">{rec.companyagen_nmagen}</td>
+                                            </tr>
+                                        {/each}
+                                    {:else}
+                                        <tr>
+                                            <td colspan="5" class="text-xs">No Records</td>
+                                        </tr>
+                                    {/if}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="bg-[#F7F7F7] rounded-sm h-10 p-2">
+                            <table class=" w-full">
+                                <tr>
+                                    <td class="text-xs font-semibold text-left align-top">TOTAL RECORD</td>
+                                    <td class="text-xs font-semibold text-right align-top text-blue-700">{new Intl.NumberFormat().format(totalrecordagen)}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    {/if}
                 </div>
             </div>
         {/if}
@@ -1023,7 +1169,61 @@
     </slot:template>
 </Modal_popup>
 
-
+<input type="checkbox" id="my-modal-formagen" class="modal-toggle" bind:checked={isModal_Form_agen}>
+<Modal_popup
+    modal_popup_id="my-modal-formagen"
+    modal_popup_title="{info_idagen}"
+    modal_popup_class="select-none w-11/12 {modal_listadmin_width} scrollbar-thin scrollbar-thumb-sky-300 scrollbar-track-sky-100">
+    <slot:template slot="modalpopup_body">
+        <table class="w-full mt-2">
+            <tr>
+                <td width="20%" class="text-xs font-semibold">IDAGEN</td>
+                <td width="1%" class="text-xs">:</td>
+                <td width="*" class="text-xs">{info_idagen}</td>
+            </tr>
+            <tr>
+                <td class="text-xs font-semibold">AGEN</td>
+                <td class="text-xs">:</td>
+                <td class="text-xs">{info_nmagen}</td>
+            </tr>
+            <tr>
+                <td class="text-xs font-semibold">START JOIN</td>
+                <td class="text-xs">:</td>
+                <td class="text-xs">{info_start}</td>
+            </tr>
+            <tr>
+                <td class="text-xs font-semibold">END JOIN</td>
+                <td class="text-xs">:</td>
+                <td class="text-xs">{info_end}</td>
+            </tr>
+            <tr>
+                <td class="text-xs font-semibold">OWNER NAME</td>
+                <td class="text-xs">:</td>
+                <td class="text-xs">{info_ownername}</td>
+            </tr>
+            <tr>
+                <td class="text-xs font-semibold">OWNER PHONE</td>
+                <td class="text-xs">:</td>
+                <td class="text-xs">{info_ownerphone}</td>
+            </tr>
+            <tr>
+                <td class="text-xs font-semibold">OWNER EMAIL</td>
+                <td class="text-xs">:</td>
+                <td class="text-xs">{info_owneremail}</td>
+            </tr>
+            <tr>
+                <td class="text-xs font-semibold">CREATE</td>
+                <td class="text-xs">:</td>
+                <td class="text-xs">{info_create}</td>
+            </tr>
+            <tr>
+                <td class="text-xs font-semibold">MODIFIED</td>
+                <td class="text-xs">:</td>
+                <td class="text-xs">{info_update}</td>
+            </tr>
+        </table>
+    </slot:template>
+</Modal_popup>
 
 <input type="checkbox" id="my-modal-notif" class="modal-toggle" bind:checked={isModalNotif}>
 <Modal_alert 

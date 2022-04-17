@@ -62,6 +62,7 @@
                 if (record != null) {
                     let home_status_text = "";
                     let home_status_class = "";
+                    let totalagen_class = "";
                     for (var i = 0; i < record.length; i++) {
                         if(record[i]["company_status"] == "Y"){
                             home_status_class = "bg-[#ebfbee] text-[#6ec07b]"
@@ -69,6 +70,11 @@
                         }else{
                             home_status_class = "bg-[#fde3e3] text-[#ea7779]"
                             home_status_text = "DEACTIVE"
+                        }
+                        if(parseInt(record[i]["company_totalagen"]) > 0){
+                            totalagen_class = "text-blue-500 "
+                        }else{
+                            totalagen_class = "text-red-500 "
                         }
                         listHome = [
                             ...listHome,
@@ -83,6 +89,8 @@
                                 home_phone: record[i]["company_phoneowner"],
                                 home_email: record[i]["company_emailowner"],
                                 home_urlendpoint: record[i]["company_urlendpoint"],
+                                home_totalagen: record[i]["company_totalagen"],
+                                home_totalagen_class: totalagen_class,
                                 home_create: record[i]["company_create"],
                                 home_update: record[i]["company_update"],
                                 home_status: home_status_text,
