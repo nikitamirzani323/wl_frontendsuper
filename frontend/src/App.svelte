@@ -6,6 +6,8 @@
 	import Login from '../src/pages/Login.svelte'
 	import Home from '../src/pages/Home.svelte'
 	import Curr from '../src/pages/curr/Curr.svelte'
+	import Game from '../src/pages/game/Game.svelte'
+	import Providergame from '../src/pages/providergame/Providergame.svelte'
 	import Categame from '../src/pages/categorygame/Categorygame.svelte'
 	import Catebank from '../src/pages/categorybank/Categorybank.svelte'
 	import Banktype from '../src/pages/banktype/Banktype.svelte'
@@ -65,6 +67,20 @@
 							font_size: font_size,
 						},
 						component: Curr,
+					}),
+				"/game": wrap({
+						props: {
+							path_api: path_api,
+							font_size: font_size,
+						},
+						component: Game,
+					}),
+				"/providergame": wrap({
+						props: {
+							path_api: path_api,
+							font_size: font_size,
+						},
+						component: Providergame,
 					}),
 				"/categorygame": wrap({
 						props: {
