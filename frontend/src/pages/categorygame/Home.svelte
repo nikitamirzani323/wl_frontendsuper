@@ -16,7 +16,7 @@
     export let listHome = [];
     export let totalrecord = 0;
 
-    let page = "Category Bank";
+    let page = "Category Game";
     let sData = "New";
     let isModal_Form_New = false
     let isModalLoading = false
@@ -28,12 +28,22 @@
     let msg_error = "";
     let searchHome = "";
     let filterHome = [];
-    let catebank_id_field = 0
-    let createbank_update_field = ""
-    let createbank_create_field = ""
+    let categame_id_field = ""
+    let categame_id_enabled = true;
+    let creategame_create_field = ""
+    let creategame_update_field = ""
     let dispatch = createEventDispatcher();
     const schema = yup.object().shape({
-        catebank_name_field: yup
+        categame_id_field: yup
+            .string()
+            .required("ID is Required")
+            .matches(
+                /^[a-zA-z0-9]+$/,
+                "ID must Character A-Z or a-z or 1-9"
+            )
+            .min(2, "ID must be at least 4 Character")
+            .max(5, "ID must be at most 5 Character"),
+        categame_name_field: yup
             .string()
             .required("Name is Required")
             .matches(
@@ -42,22 +52,24 @@
             )
             .min(4, "Name must be at least 4 Character")
             .max(70, "Name must be at most 70 Character"),
-        catebank_status_field: yup.string().required("Status is Required"),
+         categame_status_field: yup.string().required("Status is Required"),
     });
     const { form, errors, handleChange, handleSubmit } = createForm({
         initialValues: {
-            catebank_name_field: "",
-            catebank_status_field: "",
+            categame_id_field: "",
+            categame_name_field: "",
+            categame_status_field: "",
         },
         validationSchema: schema,
         onSubmit: (values) => {
             SaveTransaksi(
-                values.catebank_name_field,
-                values.catebank_status_field
+                values.categame_id_field,
+                values.categame_name_field,
+                values.categame_status_field
             );
         },
     });
-    async function SaveTransaksi(name, status) {
+    async function SaveTransaksi(idcate, name, status) {
         let flag = true;
         msg_error = "";
         if(status == ""){
@@ -68,7 +80,7 @@
             buttonLoading_flag = true;
             loader_class = "inline-block"
             loader_msg = "Sending..."
-            const res = await fetch(path_api+"api/savecategorybank", {
+            const res = await fetch(path_api+"api/savecategorygame", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -76,8 +88,8 @@
                 },
                 body: JSON.stringify({
                     sdata: sData,
-                    page: "CATEBANK-SAVE",
-                    idcatebank: parseInt(catebank_id_field),
+                    page: "CATEGAME-SAVE",
+                    idcategame: idcate.toUpperCase(),
                     name: name,
                     status: status,
                 }),
@@ -92,8 +104,9 @@
                 if (json.status == 200) {
                     loader_msg = json.message
                     if(sData == "New"){
-                        $form.catebank_name_field = "";
-                        $form.catebank_status_field = "";
+                        $form.categame_id_field= "";
+                        $form.categame_name_field= "";
+                        $form.categame_status_field= "";
                     }
                 } else if (json.status == 403) {
                     loader_msg = json.message
@@ -116,15 +129,18 @@
     const EntryData = (tipeentry,id,name,status,create,update) => {
         if(tipeentry == "Edit"){
             sData = "Edit"
-            catebank_id_field = id
-            $form.catebank_name_field = name;
-            $form.catebank_status_field = status;
-            createbank_create_field = create;
-            createbank_update_field = update;
+            categame_id_field = id
+            $form.categame_id_field = id;
+            $form.categame_name_field = name;
+            $form.categame_status_field = status;
+            creategame_create_field = create;
+            creategame_update_field = update;
+            categame_id_enabled = false;
             isModal_Form_New = true;
         }else{
             sData = "New"
             clearField()
+            categame_id_enabled = true;
             isModal_Form_New = true;
         }
         
@@ -138,13 +154,15 @@
     };
     
     function clearField(){
-        $form.catebank_name_field = "";
-        $form.catebank_status_field = "";
-        $errors.catebank_name_field = "";
-        $errors.catebank_status_field = "";
-        catebank_id_field = 0
-        createbank_update_field = ""
-        createbank_create_field = ""
+        $form.categame_id_field = "";
+        $form.categame_name_field = "";
+        $form.categame_status_field = "";
+        $errors.categame_id_field = "";
+        $errors.categame_name_field = "";
+        $errors.categame_status_field = "";
+        categame_id_field = ""
+        creategame_update_field = ""
+        creategame_create_field = ""
     }
     
     $: {
@@ -189,6 +207,7 @@
                     <th width="1%" class="bg-[#475289] {font_size} text-white text-center"></th>
                     <th width="1%" class="bg-[#475289] {font_size} text-white text-center">NO</th>
                     <th width="1%" class="bg-[#475289] {font_size} text-white text-center">STATUS</th>
+                    <th width="1%" class="bg-[#475289] {font_size} text-white text-left">ID</th>
                     <th width="*" class="bg-[#475289] {font_size} text-white text-left">NAMA</th>
                 </tr>
             </thead>
@@ -205,6 +224,7 @@
                         </td>
                         <td class="{font_size} align-top text-center">{rec.home_no}</td>
                         <td class="{font_size} align-top text-center"><span class="{rec.home_statusclass} text-center rounded-md p-1 px-2">{rec.home_status}</span></td>
+                        <td class="{font_size} align-top text-left">{rec.home_id}</td>
                         <td class="{font_size} align-top text-left">{rec.home_nama}</td>
                     </tr>
                     {/each}
@@ -236,27 +256,44 @@
                     input_autofocus={false}
                     input_required={true}
                     input_tipe="text"
+                    input_maxlength_text="5"
+                    input_invalid={$errors.categame_id_field.length > 0}
+                    bind:value={$form.categame_id_field}
+                    input_id="categame_id_field"
+                    input_enabled={categame_id_enabled}
+                    input_text_class="uppercase"
+                    input_placeholder="ID"/>
+                {#if $errors.categame_id_field}
+                    <small class="text-pink-600 text-[11px]">{$errors.categame_id_field}</small>
+                {/if}
+            </div>
+            <div >
+                <Input_custom
+                    input_onchange="{handleChange}"
+                    input_autofocus={false}
+                    input_required={true}
+                    input_tipe="text"
                     input_maxlength_text="70"
-                    input_invalid={$errors.catebank_name_field.length > 0}
-                    bind:value={$form.catebank_name_field}
-                    input_id="catebank_name_field"
+                    input_invalid={$errors.categame_name_field.length > 0}
+                    bind:value={$form.categame_name_field}
+                    input_id="categame_name_field"
                     input_placeholder="Nama"/>
-                {#if $errors.catebank_name_field}
-                    <small class="text-pink-600 text-[11px]">{$errors.catebank_name_field}</small>
+                {#if $errors.categame_name_field}
+                    <small class="text-pink-600 text-[11px]">{$errors.categame_name_field}</small>
                 {/if}
             </div>
             <div class="">
                 <select
                     on:change="{handleChange}"
-                    bind:value={$form.catebank_status_field}
-                    invalid={$errors.catebank_status_field.length > 0} 
+                    bind:value={$form.categame_status_field}
+                    invalid={$errors.categame_status_field.length > 0} 
                     class="w-full text-sm lg:text-md rounded px-3  border border-gray-300 focus:border-blue-700 focus:ring-1 focus:ring-blue-700 focus:outline-none input active:outline-none">
                     <option disabled selected value="">--Pilih Status--</option>
                     <option value="ACTIVE">ACTIVE</option>
                     <option value="DEACTIVE">DEACTIVE</option>
                 </select>
-                {#if $errors.catebank_status_field}
-                    <small class="text-pink-600 text-[11px]">{$errors.catebank_status_field}</small>
+                {#if $errors.categame_status_field}
+                    <small class="text-pink-600 text-[11px]">{$errors.categame_status_field}</small>
                 {/if}
             </div>
             {#if sData == "Edit"}
@@ -266,13 +303,13 @@
                             <tr>
                                 <td>Create</td>
                                 <td>:</td>
-                                <td>{createbank_create_field}</td>
+                                <td>{creategame_create_field}</td>
                             </tr>
-                            {#if createbank_update_field != ""}
+                            {#if creategame_update_field != ""}
                             <tr>
                                 <td>Modified</td>
                                 <td>:</td>
-                                <td>{createbank_update_field}</td>
+                                <td>{creategame_update_field}</td>
                             </tr>
                             {/if}
                         </table>
