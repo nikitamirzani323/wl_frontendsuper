@@ -290,6 +290,8 @@
                             <tr>
                                 <th class="{font_size}" colspan="2">COMPANY</th>
                                 <th class="{font_size}" colspan="2">CURRENCY</th>
+                                <th class="{font_size}" colspan="2">CATEGORY BANK</th>
+                                <th class="{font_size}" colspan="2">BANK TYPE</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -308,6 +310,20 @@
                                         value="CURRENCY-VIEW"/>
                                 </td>
                                 <td class="{font_size}" width="*">VIEW</td>
+                                <td width="1%">
+                                    <input
+                                        bind:group={adminrule_rule_field}
+                                        type="checkbox"
+                                        value="CATEBANK-VIEW"/>
+                                </td>
+                                <td class="{font_size}" width="*">VIEW</td>
+                                <td width="1%">
+                                    <input
+                                        bind:group={adminrule_rule_field}
+                                        type="checkbox"
+                                        value="BANKTYPE-VIEW"/>
+                                </td>
+                                <td class="{font_size}" width="*">VIEW</td>
                             </tr>
                             <tr>
                                 <td width="1%">
@@ -322,6 +338,77 @@
                                     bind:group={adminrule_rule_field}
                                     type="checkbox"
                                     value="CURRENCY-SAVE"/>
+                                </td>
+                                <td class="{font_size}" width="*">SAVE</td>
+                                <td width="1%">
+                                    <input
+                                    bind:group={adminrule_rule_field}
+                                    type="checkbox"
+                                    value="CATEBANK-SAVE"/>
+                                </td>
+                                <td class="{font_size}" width="*">SAVE</td>
+                                <td width="1%">
+                                    <input
+                                    bind:group={adminrule_rule_field}
+                                    type="checkbox"
+                                    value="BANKTYPE-SAVE"/>
+                                </td>
+                                <td class="{font_size}" width="*">SAVE</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-compact w-full mt-1">
+                        <thead>
+                            <tr>
+                                <th class="{font_size}" colspan="2">CATEGORY GAME</th>
+                                <th class="{font_size}" colspan="2">PROVIDER GAME</th>
+                                <th class="{font_size}" colspan="2">GAME</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td width="1%">
+                                    <input
+                                        bind:group={adminrule_rule_field}
+                                        type="checkbox"
+                                        value="CATEGAME-VIEW"/>
+                                </td>
+                                <td class="{font_size}" width="*">VIEW</td>
+                                <td width="1%">
+                                    <input
+                                        bind:group={adminrule_rule_field}
+                                        type="checkbox"
+                                        value="PROVIDERGAME-VIEW"/>
+                                </td>
+                                <td class="{font_size}" width="*">VIEW</td>
+                                <td width="1%">
+                                    <input
+                                        bind:group={adminrule_rule_field}
+                                        type="checkbox"
+                                        value="GAME-VIEW"/>
+                                </td>
+                                <td class="{font_size}" width="*">VIEW</td>
+                            </tr>
+                            <tr>
+                                <td width="1%">
+                                    <input
+                                        bind:group={adminrule_rule_field}
+                                        type="checkbox"
+                                        value="CATEGAME-SAVE"/>
+                                </td>
+                                <td class="{font_size}" width="*">SAVE</td>
+                                <td width="1%">
+                                    <input
+                                    bind:group={adminrule_rule_field}
+                                    type="checkbox"
+                                    value="PROVIDERGAME-SAVE"/>
+                                </td>
+                                <td class="{font_size}" width="*">SAVE</td>
+                                <td width="1%">
+                                    <input
+                                    bind:group={adminrule_rule_field}
+                                    type="checkbox"
+                                    value="GAME-SAVE"/>
                                 </td>
                                 <td class="{font_size}" width="*">SAVE</td>
                             </tr>

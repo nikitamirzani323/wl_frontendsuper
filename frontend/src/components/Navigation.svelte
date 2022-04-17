@@ -64,6 +64,9 @@
                   <li><a use:link href="/admin"  class="text-sm">ADMIN MANAGEMENT</a></li>
                   <li><a use:link href="/adminrule"  class="text-sm">ADMIN RULE</a></li>
                   <li><a use:link href="/curr"  class="text-sm">CURRENCY</a></li>
+                  <li><a use:link href="/categorybank"  class="text-sm">CATEGORY BANK</a></li>
+                  <li><a use:link href="/categorygame"  class="text-sm">CATEGORY GAME</a></li>
+                  <li><a use:link href="/banktype"  class="text-sm">BANK TYPE</a></li>
                 </ul>
             </li>
             <li><a class="text-sm" use:link href="/setting">SETTING</a></li>
