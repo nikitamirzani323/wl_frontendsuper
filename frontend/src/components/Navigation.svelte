@@ -44,32 +44,34 @@
         </div>
         <div class="navbar-center hidden lg:flex">
           <ul class="menu menu-horizontal p-0">
-            <li><a class="text-sm" href="/">DASBOARD</a></li>
+            <li><a class="text-sm hover:bg-[#e6f7ff]" href="/">DASHBOARD</a></li>
             <li tabindex="0">
-              <a class="text-sm">
+              <a class="text-sm hover:bg-[#e6f7ff]">
                 COMPANY
                 <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
               </a>
               <ul class="p-2 bg-white">
-                <li><a use:link href="/company" class="text-sm">COMPANY</a></li>
+                <li><a use:link href="/company" class="text-xs hover:bg-[#e6f7ff]">COMPANY</a></li>
               </ul>
             </li>
             <li tabindex="0">
-                <a class="text-sm">
+                <a class="text-sm hover:bg-[#e6f7ff]">
                   MASTER
                   <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
                 </a>
                 <ul class="p-2 bg-white">
-                  <li><a use:link href="/log"  class="text-sm">LOG MANAGEMENT</a></li>
-                  <li><a use:link href="/admin"  class="text-sm">ADMIN MANAGEMENT</a></li>
-                  <li><a use:link href="/adminrule"  class="text-sm">ADMIN RULE</a></li>
-                  <li><a use:link href="/curr"  class="text-sm">CURRENCY</a></li>
-                  <li><a use:link href="/categorybank"  class="text-sm">CATEGORY BANK</a></li>
-                  <li><a use:link href="/categorygame"  class="text-sm">CATEGORY GAME</a></li>
-                  <li><a use:link href="/banktype"  class="text-sm">BANK TYPE</a></li>
+                  <li><a use:link href="/log"  class="text-xs hover:bg-[#e6f7ff]">LOG MANAGEMENT</a></li>
+                  <li><a use:link href="/admin"  class="text-xs hover:bg-[#e6f7ff]">ADMIN MANAGEMENT</a></li>
+                  <li><a use:link href="/adminrule"  class="text-xs hover:bg-[#e6f7ff]">ADMIN RULE</a></li>
+                  <li><a use:link href="/curr"  class="text-xs hover:bg-[#e6f7ff]">CURRENCY</a></li>
+                  <li><a use:link href="/categorybank"  class="text-xs hover:bg-[#e6f7ff]">CATEGORY BANK</a></li>
+                  <li><a use:link href="/categorygame"  class="text-xs hover:bg-[#e6f7ff]">CATEGORY GAME</a></li>
+                  <li><a use:link href="/banktype"  class="text-xs hover:bg-[#e6f7ff]">BANK TYPE</a></li>
+                  <li><a use:link href="/providergame"  class="text-xs hover:bg-[#e6f7ff]">PROVIDER GAME</a></li>
+                  <li><a use:link href="/game"  class="text-xs hover:bg-[#e6f7ff]">GAME</a></li>
                 </ul>
             </li>
-            <li><a class="text-sm" use:link href="/setting">SETTING</a></li>
+            <li><a class="text-sm hover:bg-[#e6f7ff]" use:link href="/setting">SETTING</a></li>
           </ul>
         </div>
         <div class="navbar-end">
@@ -77,7 +79,7 @@
                 on:click={() => {
                     handleLogout();
                 }}
-                class="btn btn-ghost btn-circle">
+                class="btn btn-ghost btn-circle hover:bg-[#e6f7ff]">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-black fill-current" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                 </svg>
