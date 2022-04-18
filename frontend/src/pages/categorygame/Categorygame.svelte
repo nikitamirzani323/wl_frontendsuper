@@ -76,6 +76,7 @@
                                 home_no: no,
                                 home_id: record[i]["categame_id"],
                                 home_nama: record[i]["categame_name"],
+                                home_display: record[i]["categame_display"],
                                 home_status: status_text,
                                 home_create: record[i]["categame_create"],
                                 home_update: record[i]["categame_update"],

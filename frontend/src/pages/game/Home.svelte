@@ -30,10 +30,10 @@
     let msg_error = "";
     let searchHome = "";
     let filterHome = [];
-    let providergame_id_field = ""
-    let providergame_id_enabled = true;
-    let providergame_create_field = ""
-    let providergame_update_field = ""
+    let game_id_field = 0
+    let game_id_enabled = true;
+    let game_create_field = ""
+    let game_update_field = ""
     let dispatch = createEventDispatcher();
     const schema = yup.object().shape({
         Game_name_field: yup
@@ -81,7 +81,7 @@
             );
         },
     });
-    async function SaveTransaksi(idgame, name,imgcover,imgthumb,endpoint,categame,providergame, status) {
+    async function SaveTransaksi(name,imgcover,imgthumb,endpoint,categame,providergame, status) {
         let flag = true;
         msg_error = "";
         if(status == ""){
@@ -101,7 +101,7 @@
                 body: JSON.stringify({
                     sdata: sData,
                     page: "GAME-SAVE",
-                    idgame: idgame,
+                    idgame: parseInt(game_id_field),
                     idcategame: categame,
                     idprovidergame: providergame,
                     name: name,
@@ -154,24 +154,25 @@
         }
     }
     
-    const EntryData = (tipeentry,id,name,phone,email,note,status,create,update) => {
+    const EntryData = (tipeentry,id,name,imgcover,imgthumb,endpoint,categame,providergame,status,create,update) => {
         if(tipeentry == "Edit"){
             sData = "Edit"
-            providergame_id_field = id
-            $form.providergame_id_field = id;
-            $form.providergame_name_field = name;
-            $form.providergame_phone_field = phone;
-            $form.providergame_email_field = email;
-            $form.providergame_note_field = note;
-            $form.providergame_status_field = status;
-            providergame_create_field = create;
-            providergame_update_field = update;
-            providergame_id_enabled = false;
+            game_id_field = id
+            $form.Game_name_field = name;
+            $form.Game_imgcover_field = imgcover;
+            $form.Game_imgthumb_field = imgthumb;
+            $form.Game_endpointurl_field = endpoint;
+            $form.Game_categame_field = categame;
+            $form.Game_providergame_field = providergame;
+            $form.Game_status_field = status;
+            game_create_field = create
+            game_update_field = update
+            game_id_enabled = false;
             isModal_Form_New = true;
         }else{
             sData = "New"
             clearField()
-            providergame_id_enabled = true;
+            game_id_enabled = true;
             isModal_Form_New = true;
         }
         
@@ -199,22 +200,22 @@
         $errors.Game_categame_field = "";
         $errors.Game_providergame_field = "";
         $errors.Game_status_field = "";
-        providergame_id_field = ""
-        providergame_update_field = ""
-        providergame_create_field = ""
+        game_id_field = 0
+        game_create_field = ""
+        game_update_field = ""
     }
     
     $: {
         if (searchHome) {
             filterHome = listHome.filter(
                 (item) =>
-                    item.home_id
+                    item.home_nmcategame
                         .toLowerCase()
                         .includes(searchHome.toLowerCase()) ||
                     item.home_nama
                         .toLowerCase()
                         .includes(searchHome.toLowerCase()) ||
-                    item.home_status
+                    item.home_nmprovidergame
                         .toLowerCase()
                         .includes(searchHome.toLowerCase()) 
             );
@@ -240,7 +241,7 @@
         </div>
         <input 
             bind:value={searchHome}
-            type="text" placeholder="Search by ID, Nama, Status" class="input input-bordered w-full max-w-full rounded-md pl-8 pr-4 focus:ring-0 focus:outline-none">
+            type="text" placeholder="Search by ID, Nama, Category Game, Provider Game" class="input input-bordered w-full max-w-full rounded-md pl-8 pr-4 focus:ring-0 focus:outline-none">
     </slot:template>
     <slot:template slot="panel_body">
         <table class="table table-compact w-full">
@@ -250,9 +251,10 @@
                     <th width="1%" class="bg-[#475289] {font_size} text-white text-center">NO</th>
                     <th width="1%" class="bg-[#475289] {font_size} text-white text-center">STATUS</th>
                     <th width="1%" class="bg-[#475289] {font_size} text-white text-left">ID</th>
-                    <th width="*" class="bg-[#475289] {font_size} text-white text-left">NAMA</th>
-                    <th width="15%" class="bg-[#475289] {font_size} text-white text-left">PHONE</th>
-                    <th width="25%" class="bg-[#475289] {font_size} text-white text-left">EMAIL</th>
+                    <th width="10%" class="bg-[#475289] {font_size} text-white text-left">&nbsp;</th>
+                    <th width="10%" class="bg-[#475289] {font_size} text-white text-left">CATEGORY GAME</th>
+                    <th width="10%" class="bg-[#475289] {font_size} text-white text-left">PROVIDER GAME</th>
+                    <th width="*" class="bg-[#475289] {font_size} text-white text-left">GAME</th>
                 </tr>
             </thead>
             {#if filterHome != ""}
@@ -261,9 +263,10 @@
                     <tr>
                         <td on:click={() => {
                             EntryData("Edit",
-                                rec.home_id,rec.home_nama,rec.home_phone,rec.home_email,rec.home_note,rec.home_status,
+                                rec.home_id,rec.home_nama,rec.home_imgcover,rec.home_imgthumb,rec.home_endpoint,
+                                rec.home_idcategame,rec.home_idprovidergame,rec.home_status,
                                 rec.home_create,rec.home_update);
-                            }} class="text-center text-xs cursor-pointer">
+                            }} class="text-center text-xs cursor-pointer align-top">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                             </svg>
@@ -271,9 +274,12 @@
                         <td class="{font_size} align-top text-center">{rec.home_no}</td>
                         <td class="{font_size} align-top text-center"><span class="{rec.home_statusclass} text-center rounded-md p-1 px-2">{rec.home_status}</span></td>
                         <td class="{font_size} align-top text-left">{rec.home_id}</td>
+                        <td class="{font_size} align-top text-left">
+                            <img src="{rec.home_imgthumb}" width="100" alt="">
+                        </td>
+                        <td class="{font_size} align-top text-left">{rec.home_nmcategame}</td>
+                        <td class="{font_size} align-top text-left">{rec.home_nmprovidergame}</td>
                         <td class="{font_size} align-top text-left">{rec.home_nama}</td>
-                        <td class="{font_size} align-top text-left">{rec.home_phone}</td>
-                        <td class="{font_size} align-top text-left">{rec.home_email}</td>
                     </tr>
                     {/each}
                 </tbody>
@@ -411,13 +417,13 @@
                             <tr>
                                 <td>Create</td>
                                 <td>:</td>
-                                <td>{providergame_create_field}</td>
+                                <td>{game_create_field}</td>
                             </tr>
-                            {#if providergame_update_field != ""}
+                            {#if game_update_field != ""}
                             <tr>
                                 <td>Modified</td>
                                 <td>:</td>
-                                <td>{providergame_update_field}</td>
+                                <td>{game_update_field}</td>
                             </tr>
                             {/if}
                         </table>

@@ -55,6 +55,27 @@
               </ul>
             </li>
             <li tabindex="0">
+              <a class="text-sm hover:bg-[#e6f7ff]">
+                GAME
+                <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
+              </a>
+              <ul class="p-2 bg-white">
+                <li><a use:link href="/categorygame"  class="text-xs hover:bg-[#e6f7ff]">CATEGORY GAME</a></li>
+                <li><a use:link href="/providergame"  class="text-xs hover:bg-[#e6f7ff]">PROVIDER GAME</a></li>
+                <li><a use:link href="/game"  class="text-xs hover:bg-[#e6f7ff]">GAME</a></li>
+              </ul>
+            </li>
+            <li tabindex="0">
+              <a class="text-sm hover:bg-[#e6f7ff]">
+                BANK
+                <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
+              </a>
+              <ul class="p-2 bg-white">
+                <li><a use:link href="/categorybank"  class="text-xs hover:bg-[#e6f7ff]">CATEGORY BANK</a></li>
+                <li><a use:link href="/banktype"  class="text-xs hover:bg-[#e6f7ff]">BANK TYPE</a></li>
+              </ul>
+            </li>
+            <li tabindex="0">
                 <a class="text-sm hover:bg-[#e6f7ff]">
                   MASTER
                   <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
@@ -64,11 +85,7 @@
                   <li><a use:link href="/admin"  class="text-xs hover:bg-[#e6f7ff]">ADMIN MANAGEMENT</a></li>
                   <li><a use:link href="/adminrule"  class="text-xs hover:bg-[#e6f7ff]">ADMIN RULE</a></li>
                   <li><a use:link href="/curr"  class="text-xs hover:bg-[#e6f7ff]">CURRENCY</a></li>
-                  <li><a use:link href="/categorybank"  class="text-xs hover:bg-[#e6f7ff]">CATEGORY BANK</a></li>
-                  <li><a use:link href="/categorygame"  class="text-xs hover:bg-[#e6f7ff]">CATEGORY GAME</a></li>
-                  <li><a use:link href="/banktype"  class="text-xs hover:bg-[#e6f7ff]">BANK TYPE</a></li>
-                  <li><a use:link href="/providergame"  class="text-xs hover:bg-[#e6f7ff]">PROVIDER GAME</a></li>
-                  <li><a use:link href="/game"  class="text-xs hover:bg-[#e6f7ff]">GAME</a></li>
+                  
                 </ul>
             </li>
             <li><a class="text-sm hover:bg-[#e6f7ff]" use:link href="/setting">SETTING</a></li>

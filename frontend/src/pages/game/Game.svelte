@@ -69,7 +69,7 @@
                     totalrecord = record.length;
                     for (var i = 0; i < record.length; i++) {
                         no = no + 1;
-                        if (record[i]["providergame_status"] == "Y") {
+                        if (record[i]["game_status"] == "ACTIVE") {
                             status_class = "bg-[#ebfbee] text-[#6ec07b]"
                             status_text = "ACTIVE"
                         } else {
@@ -80,14 +80,18 @@
                             ...listHome,
                             {
                                 home_no: no,
-                                home_id: record[i]["providergame_id"],
-                                home_nama: record[i]["providergame_name"],
-                                home_phone: record[i]["providergame_phone"],
-                                home_email: record[i]["providergame_email"],
-                                home_note: record[i]["providergame_note"],
+                                home_id: record[i]["game_id"],
+                                home_idcategame: record[i]["game_idcategame"],
+                                home_idprovidergame: record[i]["game_idprovidergame"],
+                                home_nmcategame: record[i]["game_nmcategame"],
+                                home_nmprovidergame: record[i]["game_nmprovidergame"],
+                                home_nama: record[i]["game_name"],
+                                home_imgcover: record[i]["game_imgcover"],
+                                home_imgthumb: record[i]["game_imgthumb"],
+                                home_endpoint: record[i]["game_endpointurl"],
                                 home_status: status_text,
-                                home_create: record[i]["providergame_create"],
-                                home_update: record[i]["providergame_update"],
+                                home_create: record[i]["game_create"],
+                                home_update: record[i]["game_update"],
                                 home_statusclass: status_class,
                             },
                         ];

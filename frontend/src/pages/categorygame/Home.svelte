@@ -30,6 +30,7 @@
     let filterHome = [];
     let categame_id_field = ""
     let categame_id_enabled = true;
+    let categame_display_field = 0;
     let creategame_create_field = ""
     let creategame_update_field = ""
     let dispatch = createEventDispatcher();
@@ -91,6 +92,7 @@
                     page: "CATEGAME-SAVE",
                     idcategame: idcate.toUpperCase(),
                     name: name,
+                    display: parseInt(categame_display_field),
                     status: status,
                 }),
             });
@@ -107,6 +109,7 @@
                         $form.categame_id_field= "";
                         $form.categame_name_field= "";
                         $form.categame_status_field= "";
+                        categame_display_field = 0;
                     }
                 } else if (json.status == 403) {
                     loader_msg = json.message
@@ -126,13 +129,14 @@
         }
     }
     
-    const EntryData = (tipeentry,id,name,status,create,update) => {
+    const EntryData = (tipeentry,id,name,display,status,create,update) => {
         if(tipeentry == "Edit"){
             sData = "Edit"
             categame_id_field = id
             $form.categame_id_field = id;
             $form.categame_name_field = name;
             $form.categame_status_field = status;
+            categame_display_field = display;
             creategame_create_field = create;
             creategame_update_field = update;
             categame_id_enabled = false;
@@ -161,6 +165,7 @@
         $errors.categame_name_field = "";
         $errors.categame_status_field = "";
         categame_id_field = ""
+        categame_display_field = 0;
         creategame_update_field = ""
         creategame_create_field = ""
     }
@@ -170,9 +175,6 @@
             filterHome = listHome.filter(
                 (item) =>
                     item.home_nama
-                        .toLowerCase()
-                        .includes(searchHome.toLowerCase()) ||
-                    item.home_status
                         .toLowerCase()
                         .includes(searchHome.toLowerCase()) 
             );
@@ -198,7 +200,7 @@
         </div>
         <input 
             bind:value={searchHome}
-            type="text" placeholder="Search by Nama, Status" class="input input-bordered w-full max-w-full rounded-md pl-8 pr-4 focus:ring-0 focus:outline-none">
+            type="text" placeholder="Search by Nama" class="input input-bordered w-full max-w-full rounded-md pl-8 pr-4 focus:ring-0 focus:outline-none">
     </slot:template>
     <slot:template slot="panel_body">
         <table class="table table-compact w-full">
@@ -209,6 +211,7 @@
                     <th width="1%" class="bg-[#475289] {font_size} text-white text-center">STATUS</th>
                     <th width="1%" class="bg-[#475289] {font_size} text-white text-left">ID</th>
                     <th width="*" class="bg-[#475289] {font_size} text-white text-left">NAMA</th>
+                    <th width="7%" class="bg-[#475289] {font_size} text-white text-right">DISPLAY</th>
                 </tr>
             </thead>
             {#if filterHome != ""}
@@ -216,7 +219,7 @@
                     {#each filterHome as rec}
                     <tr>
                         <td on:click={() => {
-                            EntryData("Edit",rec.home_id,rec.home_nama,rec.home_status,rec.home_create,rec.home_update);
+                            EntryData("Edit",rec.home_id,rec.home_nama,rec.home_display,rec.home_status,rec.home_create,rec.home_update);
                             }} class="text-center text-xs cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
@@ -226,6 +229,7 @@
                         <td class="{font_size} align-top text-center"><span class="{rec.home_statusclass} text-center rounded-md p-1 px-2">{rec.home_status}</span></td>
                         <td class="{font_size} align-top text-left">{rec.home_id}</td>
                         <td class="{font_size} align-top text-left">{rec.home_nama}</td>
+                        <td class="{font_size} align-top text-right text-blue-500 font-semibold">{rec.home_display}</td>
                     </tr>
                     {/each}
                 </tbody>
@@ -282,6 +286,13 @@
                     <small class="text-pink-600 text-[11px]">{$errors.categame_name_field}</small>
                 {/if}
             </div>
+            <Input_custom
+                input_enabled={true}
+                input_tipe="number_nolabel"
+                bind:value={categame_display_field}
+                input_maxlenght="3"
+                input_id="categame_display_field"
+                input_placeholder="Display"/>
             <div class="">
                 <select
                     on:change="{handleChange}"

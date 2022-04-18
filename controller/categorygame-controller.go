@@ -70,11 +70,12 @@ func Categame(c *fiber.Ctx) error {
 }
 func Savecategame(c *fiber.Ctx) error {
 	type payload_savecategame struct {
-		Sdata           string `json:"sdata" `
-		Page            string `json:"page" `
-		Categame_id     string `json:"idcategame"`
-		Categame_name   string `json:"name" `
-		Categame_status string `json:"status" `
+		Sdata            string `json:"sdata" `
+		Page             string `json:"page" `
+		Categame_id      string `json:"idcategame"`
+		Categame_name    string `json:"name" `
+		Categame_display int    `json:"display" `
+		Categame_status  string `json:"status" `
 	}
 	hostname := c.Hostname()
 	bearToken := c.Get("Authorization")
@@ -98,12 +99,13 @@ func Savecategame(c *fiber.Ctx) error {
 		SetError(responseerror{}).
 		SetHeader("Content-Type", "application/json").
 		SetBody(map[string]interface{}{
-			"client_hostname": hostname,
-			"sdata":           client.Sdata,
-			"page":            client.Page,
-			"categame_id":     client.Categame_id,
-			"categame_name":   client.Categame_name,
-			"categame_status": client.Categame_status,
+			"client_hostname":  hostname,
+			"sdata":            client.Sdata,
+			"page":             client.Page,
+			"categame_id":      client.Categame_id,
+			"categame_name":    client.Categame_name,
+			"categame_display": client.Categame_display,
+			"categame_status":  client.Categame_status,
 		}).
 		Post(PATH + "api/savecategorygame")
 	if err != nil {
