@@ -24,8 +24,7 @@
     })
     async function handleSave(username,password) {
         msg_error = "";
-        if(client_ipaddress != "0.0.0.0"){
-            const res = await fetch(path_api+"api/login", {
+        const res = await fetch(path_api+"api/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -51,9 +50,6 @@
                     msg_error += json.message
                 }
             }
-        }else{
-            msg_error +="Sistem Sedang Menghadapi Masalah<br> Silahkah Hubungi Administrator"
-        }
         if(msg_error != ""){
             isModalNotif = true
         }
@@ -67,16 +63,9 @@
             throw new Error(message);
         } else {
             const json = await res.json();
-            let ip_container = json.container_ip
             let ip_real = json.real_ip
-            let ipaddress = "0.0.0.0";
-            if(ip_container == "0.0.0.0"){
-                ipaddress = ip_real
-            }
-            if(ip_real == "0.0.0.0"){
-                ipaddress = ip_container
-            }
-            client_ipaddress = ipaddress;
+            
+            client_ipaddress = ip_real;
             client_timezone = "Asia/Jakarta";
         }
     }
